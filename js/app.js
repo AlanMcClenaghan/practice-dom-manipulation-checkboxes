@@ -1,6 +1,17 @@
 //1. Target the form element in the DOM.
+const form = document.querySelector('form');
   
 //2. Attach an event listener to the form element to listen for any change events.
+form.addEventListener('change', event => {
+    const currentCheckbox = event.target;
+    const combatStyle = currentCheckbox.dataset.combatStyle;
+    const conflictingCombatStyles = document.querySelectorAll(`[data-combat-style=${combatStyle}]`);
+
+    for (let i = 0; i < conflictingCombatStyles.length; i++) {
+        const conflictingCheckbox = conflictingCombatStyles[i];
+        conflictingCheckbox.disabled = currentCheckbox.checked && conflictingCheckbox !== currentCheckbox;
+    }
+})
 
 //3. Inside the event listener:
 //  - Target the checkbox that triggered the change event.
